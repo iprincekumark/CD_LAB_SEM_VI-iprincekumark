@@ -1,0 +1,34 @@
+\\13.Design a DFA in LEX Code which accepts string with even a and even b over input alphabet {a,b}.
+
+ 
+\\Code:-
+ 
+
+%{
+#include<stdio.h> #include<string.h>
+
+%}
+%s A B end
+%%
+
+<INITIAL>a BEGIN A;
+<INITIAL>b BEGIN end;
+<INITIAL>\n BEGIN INITIAL; {printf("\naccepted\n");}
+
+<A>a BEGIN INITIAL;
+<A>b BEGIN B;
+<A>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+
+<B>b BEGIN A;
+<B>a BEGIN end;
+<B>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+
+<end>b BEGIN INITIAL;
+<end>a BEGIN B;
+<end>\n BEGIN INITIAL; {printf("\n not accepted\n");}
+%%
+int yywrap(void){return 0;} 
+int main()
+{
+yylex(); return 0;
+}

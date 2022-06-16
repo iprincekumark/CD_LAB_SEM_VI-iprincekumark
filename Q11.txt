@@ -1,0 +1,30 @@
+\\11.Design a DFA in LEX Code which accepts string starting with 11 over input alphabet {0,1}.
+
+\\Code:-
+
+%{
+#include<stdio.h> #include<string.h>
+%}
+%s A end dead
+%%
+
+<INITIAL>0 BEGIN dead;
+<INITIAL>1 BEGIN A;
+<INITIAL>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+
+<A>0 BEGIN dead;
+<A>1 BEGIN end;
+<A>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+
+<end>1 BEGIN end;
+<end>0 BEGIN end;
+<end>\n BEGIN INITIAL; {printf("\naccepted\n");}
+
+<dead>0 BEGIN dead;
+<dead>1 BEGIN dead;
+<dead>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+%%
+int yywrap(void){return 0;} int main()
+{
+yylex(); return 0;
+}

@@ -1,0 +1,27 @@
+//9.Design a DFA in LEX Code which accepts string with even number of 0 over input alphabet {0,1}.
+
+//Code:-
+
+%{
+#include<stdio.h> #include<string.h>
+
+%}
+%s A end
+%%
+
+<INITIAL>0 BEGIN A;
+<INITIAL>1 BEGIN INITIAL;
+<INITIAL>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+
+<A>0 BEGIN end;
+<A>1 BEGIN A;
+<A>\n BEGIN INITIAL; {printf("\nnot accepted\n");}
+
+<end>1 BEGIN end;
+<end>0 BEGIN A;
+<end>\n BEGIN INITIAL; {printf("\naccepted\n");}
+%%
+int yywrap(void){return 0;} int main()
+{
+yylex(); return 0;
+}
